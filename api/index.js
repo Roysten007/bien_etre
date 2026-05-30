@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, '../dist/client');
 
-export default async function handler(req: any, res: any) {
+export default async function handler(req, res) {
   try {
     const url = req.url || '/';
     const filePath = path.join(distDir, url.split('?')[0]);
