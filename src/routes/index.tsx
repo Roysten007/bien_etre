@@ -166,7 +166,7 @@ function Nav() {
           {links.map(([l, h]) => (
             <a key={h} href={h} onClick={() => setOpen(false)} className="label text-[color:var(--text-light)]/90 py-2 border-b border-white/10">{l}</a>
           ))}
-          <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2">Prendre rendez-vous</a>
+          <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2 !text-[10px] !py-1.5 !px-3">Prendre rendez-vous</a>
         </div>
       )}
     </header>
@@ -206,8 +206,8 @@ function Hero() {
             className="hero-anim mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             style={{ ["--d" as string]: "450ms" } as React.CSSProperties}
           >
-            <a href="#services" className="btn-primary">Découvrir mes accompagnements →</a>
-            <a href="#about" className="btn-secondary">En savoir plus sur moi</a>
+            <a href="#services" className="btn-primary !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6">Découvrir mes accompagnements →</a>
+            <a href="#about" className="btn-secondary !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6">En savoir plus sur moi</a>
           </div>
         </div>
         <div className="hero-anim relative" style={{ ["--d" as string]: "300ms" } as React.CSSProperties}>
@@ -364,7 +364,7 @@ function Services() {
                     {c.badge}
                   </span>
                 </div>
-                <a href="#contact" className={`${c.ctaClass} mt-6 w-full`}>{c.cta}</a>
+                <a href="#contact" className={`${c.ctaClass} mt-6 w-full !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6`}>{c.cta}</a>
               </div>
             ))}
           </div>
@@ -512,7 +512,7 @@ function Contact() {
             <input required type="text" name="prenom" placeholder="Prénom *" className="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-[color:var(--accent)] focus:bg-white/15 transition" />
             <input required type="email" name="email" placeholder="Email *" className="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-[color:var(--accent)] focus:bg-white/15 transition" />
             <textarea required name="message" placeholder="Message *" className="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-[color:var(--accent)] focus:bg-white/15 transition resize-none" style={{ minHeight: 140 }} />
-            <button type="submit" className="btn-primary w-full">
+            <button type="submit" className="btn-primary w-full !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6">
               {sent ? "Message envoyé ✦" : "Envoyer mon message ✦"}
             </button>
           </form>
@@ -559,7 +559,7 @@ function Footer() {
             <a href="#" className="hover:text-[color:var(--accent)]">Mentions légales</a>
             <a href="#" className="hover:text-[color:var(--accent)]">Confidentialité</a>
           </div>
-          <div className="text-white/40">© 2025 Léa Verneuil — Tous droits réservés</div>
+          <div className="text-white/40">© 2026 Léa Verneuil — Tous droits réservés</div>
         </div>
       </div>
     </footer>
