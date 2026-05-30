@@ -1,9 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist/client",
-  "framework": "vite",
-  "regions": ["cdg"],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "framework": "vite"
 }
