@@ -6,8 +6,20 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distClientDir = path.join(__dirname, '../dist/client');
 const assetsDir = path.join(distClientDir, 'assets');
+const publicDir = path.join(__dirname, '../public');
 
 try {
+  // S'assurer que le répertoire public existe
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+
+  // Créer le répertoire public/assets
+  const publicAssetsDir = path.join(publicDir, 'assets');
+  if (!fs.existsSync(publicAssetsDir)) {
+    fs.mkdirSync(publicAssetsDir, { recursive: true });
+  }
+
   // Lire les fichiers assets générés
   const assets = fs.readdirSync(assetsDir);
   
@@ -30,6 +42,13 @@ try {
     throw new Error(`Assets non trouvés - JS: ${jsFile}, CSS: ${cssFile}`);
   }
 
+  // Copier les assets vers public/assets
+  for (const file of assets) {
+    const srcPath = path.join(assetsDir, file);
+    const destPath = path.join(publicAssetsDir, file);
+    fs.copyFileSync(srcPath, destPath);
+  }
+
   // Créer le HTML
   const indexHtml = `<!doctype html>
 <html lang="fr">
@@ -47,12 +66,14 @@ try {
   </body>
 </html>`;
 
-  fs.writeFileSync(path.join(distClientDir, 'index.html'), indexHtml);
-  console.log('✓ index.html généré avec succès');
-  console.log(`  - CSS: ${cssFile}`);
-  console.log(`  - JS: ${jsFile} (${(minSize / 1024).toFixed(2)} KB)`);
+  fs.writeFileSync(path.join(publicDir, 'index.html'), indexHtml);
+  console.log('✓ Build terminé avec succès');
+  console.log(`  - index.html créé`);
+  console.log(`  - Assets copiés (CSS: ${cssFile}, JS: ${jsFile})`);
+  console.log(`  - Prêt pour Vercel!`);
 } catch (error) {
-  console.error('✗ Erreur lors de la génération du index.html:', error.message);
+  console.error('✗ Erreur lors de la génération:', error.message);
   process.exit(1);
 }
+
 
