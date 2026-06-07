@@ -4,76 +4,68 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const distClientDir = path.join(__dirname, '../dist/client');
-const assetsDir = path.join(distClientDir, 'assets');
-const publicDir = path.join(__dirname, '../public');
+const root = path.join(__dirname, '..');
+const distClientDir = path.join(root, 'dist/client');
+const distServerDir = path.join(root, 'dist/server');
+const vercelOutputDir = path.join(root, '.vercel/output');
 
-try {
-  // S'assurer que le répertoire public existe
-  if (!fs.existsSync(publicDir)) {
-    fs.mkdirSync(publicDir, { recursive: true });
-  }
-
-  // Créer le répertoire public/assets
-  const publicAssetsDir = path.join(publicDir, 'assets');
-  if (!fs.existsSync(publicAssetsDir)) {
-    fs.mkdirSync(publicAssetsDir, { recursive: true });
-  }
-
-  // Lire les fichiers assets générés
-  const assets = fs.readdirSync(assetsDir);
-  
-  // Trouver le fichier CSS
-  const cssFile = assets.find(f => f.startsWith('styles-') && f.endsWith('.css'));
-  
-  // Trouver le plus petit fichier index-*.js (c'est le client, pas le serveur)
-  const jsFiles = assets.filter(f => f.startsWith('index-') && f.endsWith('.js'));
-  let jsFile = null;
-  let minSize = Infinity;
-  for (const file of jsFiles) {
-    const stat = fs.statSync(path.join(assetsDir, file));
-    if (stat.size < minSize) {
-      minSize = stat.size;
-      jsFile = file;
+function copyDirSync(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDirSync(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
     }
   }
+}
 
-  if (!jsFile || !cssFile) {
-    throw new Error(`Assets non trouvés - JS: ${jsFile}, CSS: ${cssFile}`);
+try {
+  // Nettoyer et créer .vercel/output
+  if (fs.existsSync(vercelOutputDir)) {
+    fs.rmSync(vercelOutputDir, { recursive: true });
   }
+  fs.mkdirSync(vercelOutputDir, { recursive: true });
 
-  // Copier les assets vers public/assets
-  for (const file of assets) {
-    const srcPath = path.join(assetsDir, file);
-    const destPath = path.join(publicAssetsDir, file);
-    fs.copyFileSync(srcPath, destPath);
-  }
+  // 1. Copier les assets statiques → .vercel/output/static/
+  const staticDir = path.join(vercelOutputDir, 'static');
+  copyDirSync(distClientDir, staticDir);
+  console.log('✓ Assets statiques copiés vers .vercel/output/static/');
 
-  // Créer le HTML
-  const indexHtml = `<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Serene Shift Hub - Coaching Personnel & Bien-être</title>
-    <meta name="description" content="Accompagnement holistique pour femmes - Coaching de vie, séances individuelles, ateliers en groupe" />
-    <meta name="theme-color" content="#2d6a4f" />
-    <link rel="stylesheet" href="/assets/${cssFile}" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/assets/${jsFile}"><\/script>
-  </body>
-</html>`;
+  // 2. Copier le serveur → .vercel/output/functions/__server.func/
+  const funcDir = path.join(vercelOutputDir, 'functions/__server.func');
+  copyDirSync(distServerDir, funcDir);
 
-  fs.writeFileSync(path.join(publicDir, 'index.html'), indexHtml);
-  console.log('✓ Build terminé avec succès');
-  console.log(`  - index.html créé`);
-  console.log(`  - Assets copiés (CSS: ${cssFile}, JS: ${jsFile})`);
-  console.log(`  - Prêt pour Vercel!`);
+  // Config de la fonction serverless
+  fs.writeFileSync(path.join(funcDir, '.vc-config.json'), JSON.stringify({
+    runtime: 'nodejs22.x',
+    handler: 'index.mjs',
+    launcherType: 'Nodejs',
+    shouldAddHelpers: false,
+    supportsResponseStreaming: true,
+  }, null, 2));
+  console.log('✓ Fonction serveur copiée vers .vercel/output/functions/__server.func/');
+
+  // 3. Créer .vercel/output/config.json
+  const config = {
+    version: 3,
+    routes: [
+      {
+        src: '/assets/(.*)',
+        headers: { 'cache-control': 'public, max-age=31536000, immutable' },
+        continue: true,
+      },
+      { handle: 'filesystem' },
+      { src: '/(.*)', dest: '/__server' },
+    ],
+  };
+  fs.writeFileSync(path.join(vercelOutputDir, 'config.json'), JSON.stringify(config, null, 2));
+  console.log('✓ config.json créé');
+
+  console.log('\n✓ Build Vercel terminé — .vercel/output/ prêt au déploiement');
 } catch (error) {
   console.error('✗ Erreur lors de la génération:', error.message);
   process.exit(1);
 }
-
-

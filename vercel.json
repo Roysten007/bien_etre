@@ -1,7 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "public",
-  "framework": "vite",
+  "framework": null,
   "env": {
     "NODE_ENV": "production"
   }
