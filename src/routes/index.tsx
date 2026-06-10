@@ -148,10 +148,11 @@ function Nav() {
             <a key={h} href={h} className="label text-[color:var(--text-light)]/85 hover:text-[color:var(--accent)] transition-colors">{l}</a>
           ))}
         </nav>
-        <a href="#contact" className="hidden md:inline-flex btn-primary !py-3 !px-6 !text-[12px]">Prendre rendez-vous</a>
+        <a href="#contact" className="hidden lg:inline-flex btn-primary !py-3 !px-6 !text-[12px]">Prendre rendez-vous</a>
         <button
           aria-label="Menu"
-          className="lg:hidden md:hidden text-[color:var(--text-light)] w-10 h-10 flex items-center justify-center"
+          aria-expanded={open}
+          className="lg:hidden text-[color:var(--text-light)] w-10 h-10 flex items-center justify-center"
           onClick={() => setOpen((o) => !o)}
         >
           <div className="space-y-1.5">
@@ -162,7 +163,7 @@ function Nav() {
         </button>
       </div>
       {open && (
-        <div className="md:hidden px-5 pb-6 flex flex-col gap-4 bg-[color:var(--primary-dark)]">
+        <div className="lg:hidden px-5 pb-6 flex flex-col gap-4 bg-[color:var(--primary-dark)]">
           {links.map(([l, h]) => (
             <a key={h} href={h} onClick={() => setOpen(false)} className="label text-[color:var(--text-light)]/90 py-2 border-b border-white/10">{l}</a>
           ))}
@@ -207,14 +208,14 @@ function Hero() {
             style={{ ["--d" as string]: "450ms" } as React.CSSProperties}
           >
             <a href="#services" className="btn-primary !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6">Découvrir mes accompagnements →</a>
-            <a href="#about" className="btn-secondary !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6">En savoir plus sur moi</a>
+            <a href="#about" className="btn-secondary !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6">En savoir plus sur moi →</a>
           </div>
         </div>
         <div className="hero-anim relative" style={{ ["--d" as string]: "300ms" } as React.CSSProperties}>
           <div className="relative aspect-square max-w-md mx-auto rounded-[40px] overflow-hidden">
             <div className="absolute inset-0 rounded-[40px] border border-white/15 pointer-events-none z-10" />
             <img src={heroBotanical} alt="Composition botanique douce d'eucalyptus et de pampas" className="w-full h-full object-cover" width={1200} height={1200} />
-            <div className="absolute -bottom-4 -left-4 px-5 py-3 rounded-full bg-[color:var(--accent)] text-[color:var(--primary-dark)] font-display font-bold shadow-xl z-20">
+            <div className="absolute bottom-4 left-4 px-4 py-2.5 md:px-5 md:py-3 rounded-full bg-[color:var(--accent)] text-[color:var(--primary-dark)] font-display font-bold shadow-xl z-20 text-[13px] md:text-base whitespace-nowrap">
               ✦ Douceur · Écoute · Élan
             </div>
           </div>
