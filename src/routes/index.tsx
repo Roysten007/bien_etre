@@ -123,6 +123,8 @@ function Nav() {
   }, []);
   const links = [
     ["À propos", "#about"],
+    ["Pour qui ?", "#pour-qui"],
+    ["Approche", "#approche"],
     ["Accompagnements", "#services"],
     ["Témoignages", "#testimonials"],
     ["FAQ", "#faq"],
@@ -201,7 +203,7 @@ function Hero() {
             className="hero-anim mt-6 max-w-xl mx-auto lg:mx-0 text-[17px] leading-[1.8] text-white/80"
             style={{ ["--d" as string]: "300ms" } as React.CSSProperties}
           >
-            J'accompagne les femmes qui se sentent perdues entre les attentes des autres et leurs propres désirs — pour qu'elles retrouvent leur voix, leur élan et leur joie de vivre.
+            J'accompagne les femmes qui s'oublient entre les attentes des autres et leurs propres désirs — pour les aider à retrouver leur voix, leur élan et cette joie de vivre qui ne demande qu'à revenir.
           </p>
           <div
             className="hero-anim mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
@@ -294,6 +296,80 @@ function About() {
   );
 }
 
+function ForWhom() {
+  const items = [
+    "Tu te sens un peu à côté de ta vie, comme si tu jouais un rôle qui n'est plus tout à fait le tien.",
+    "Tu fais passer tout le monde avant toi — et, doucement, tu as fini par t'oublier.",
+    "Tu traverses une transition (rupture, maternité, reconversion) et tu cherches ton cap.",
+    "Tu as « tout pour être heureuse », mais une petite voix te souffle qu'il manque l'essentiel.",
+    "Tu veux retrouver confiance et poser enfin tes limites, sans culpabiliser.",
+    "Tu sens que c'est le moment de revenir à toi — tu ne sais juste pas par où commencer.",
+  ];
+  return (
+    <section id="pour-qui" className="py-20 md:py-28" style={{ background: "var(--bg-alt)" }}>
+      <div className="mx-auto max-w-4xl px-5 md:px-10 text-center">
+        <p className="animate-on-scroll label text-[color:var(--primary)]">Pour qui ?</p>
+        <h2 className="animate-on-scroll mt-4 font-display font-bold text-[color:var(--primary)] text-4xl md:text-5xl" style={{ ["--i" as string]: 1 } as React.CSSProperties}>
+          Tu te reconnais peut-être <span className="text-[color:var(--accent)]">ici</span>
+        </h2>
+        <p className="animate-on-scroll mt-6 text-[color:var(--muted)] text-[17px] leading-[1.8] max-w-2xl mx-auto" style={{ ["--i" as string]: 2 } as React.CSSProperties}>
+          Si l'une de ces phrases résonne en toi, alors tu es exactement au bon endroit.
+        </p>
+        <div className="mt-12 grid sm:grid-cols-2 gap-4 text-left">
+          {items.map((t, i) => (
+            <div
+              key={i}
+              className="animate-on-scroll flex items-start gap-4 px-5 py-5 rounded-2xl bg-white"
+              style={{ boxShadow: "0 4px 24px rgba(45,106,79,0.06)", ["--i" as string]: i } as React.CSSProperties}
+            >
+              <span className="shrink-0 w-9 h-9 rounded-full bg-[color:var(--accent)]/15 text-[color:var(--accent-dark)] flex items-center justify-center">
+                <Icon.Leaf className="w-5 h-5" />
+              </span>
+              <p className="text-[15px] text-[color:var(--text)]/85 leading-[1.7]">{t}</p>
+            </div>
+          ))}
+        </div>
+        <p className="animate-on-scroll mt-12 font-display italic text-[color:var(--primary-dark)] text-xl md:text-[26px] leading-[1.5]" style={{ ["--i" as string]: 3 } as React.CSSProperties}>
+          « Tu n'as rien à réparer. Tu as juste besoin d'un espace pour te retrouver. »
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function Approach() {
+  const steps = [
+    { n: "01", title: "Écoute", text: "On pose tout, sans filtre ni jugement. Je t'accueille là où tu en es, vraiment." },
+    { n: "02", title: "Clarté", text: "On démêle ensemble ce qui t'appartient de ce que tu portes pour les autres." },
+    { n: "03", title: "Action", text: "On définit des pas concrets, à ta mesure — ces petits gestes qui changent tout." },
+    { n: "04", title: "Ancrage", text: "On installe tes nouveaux repères pour qu'ils tiennent, bien après nos séances." },
+  ];
+  return (
+    <section id="approche" className="py-20 md:py-28" style={{ background: "var(--bg)" }}>
+      <div className="mx-auto max-w-6xl px-5 md:px-10">
+        <div className="text-center max-w-2xl mx-auto">
+          <p className="animate-on-scroll label text-[color:var(--primary)]">Mon approche</p>
+          <h2 className="animate-on-scroll mt-4 font-display font-bold text-[color:var(--primary)] text-4xl md:text-5xl" style={{ ["--i" as string]: 1 } as React.CSSProperties}>
+            Un chemin <span className="text-[color:var(--accent)]">doux</span>, étape par étape
+          </h2>
+          <p className="animate-on-scroll mt-6 text-[color:var(--muted)] text-[17px] leading-[1.8]" style={{ ["--i" as string]: 2 } as React.CSSProperties}>
+            Pas de recette toute faite. Juste un cadre clair et rassurant, qui épouse ton rythme à toi.
+          </p>
+        </div>
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((s, i) => (
+            <div key={s.n} className="card animate-on-scroll relative" style={{ ["--i" as string]: i + 1 } as React.CSSProperties}>
+              <div className="font-display font-bold text-[color:var(--accent)]/30 text-5xl leading-none">{s.n}</div>
+              <h3 className="mt-3 font-display font-bold text-[color:var(--primary)] text-xl">{s.title}</h3>
+              <p className="mt-2 text-[14px] text-[color:var(--muted)] leading-[1.7]">{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Services() {
   const cards = [
     {
@@ -337,6 +413,9 @@ function Services() {
             <h2 className="animate-on-scroll mt-4 font-display font-bold text-[color:var(--text-light)] text-4xl md:text-5xl" style={{ ["--i" as string]: 1 } as React.CSSProperties}>
               Comment je peux <span className="text-[color:var(--accent)]">t'accompagner</span>
             </h2>
+            <p className="animate-on-scroll mt-6 text-white/80 text-[17px] leading-[1.8]" style={{ ["--i" as string]: 2 } as React.CSSProperties}>
+              Trois façons de cheminer ensemble. Quel que soit ton point de départ, il y a une formule à ta mesure.
+            </p>
           </div>
 
           <div className="mt-14 grid md:grid-cols-3 gap-6">
@@ -490,6 +569,34 @@ function FAQ() {
   );
 }
 
+function DiscoveryBand() {
+  return (
+    <section className="py-16 md:py-20" style={{ background: "var(--bg)" }}>
+      <div className="mx-auto max-w-5xl px-5 md:px-10">
+        <div
+          className="animate-on-scroll relative overflow-hidden rounded-[32px] px-7 py-12 md:px-14 md:py-16 text-center"
+          style={{ background: "var(--primary)" }}
+        >
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-[color:var(--accent)]/15 pointer-events-none" />
+          <div className="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-white/5 pointer-events-none" />
+          <div className="relative">
+            <p className="label text-[color:var(--accent)]">Premier pas</p>
+            <h2 className="mt-4 font-display font-bold text-[color:var(--text-light)] text-3xl md:text-[42px] leading-tight">
+              Et si on commençait par <span className="text-[color:var(--accent)]">faire connaissance</span> ?
+            </h2>
+            <p className="mt-5 text-white/85 text-[16px] md:text-[17px] leading-[1.8] max-w-xl mx-auto">
+              Je t'offre un premier appel de 20 minutes, sans engagement. On échange, tu vois si le courant passe — et tu repars déjà avec un premier éclairage.
+            </p>
+            <a href="#contact" className="btn-primary mt-8 !text-xs !py-2.5 !px-5 md:!text-sm md:!py-3 md:!px-7">
+              Réserver mon appel offert →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   const [sent, setSent] = useState(false);
   return (
@@ -502,7 +609,7 @@ function Contact() {
             Faisons <span className="text-[color:var(--accent)]">connaissance</span>
           </h2>
           <p className="animate-on-scroll mt-6 italic text-white/80 text-[17px] leading-[1.8]" style={{ ["--i" as string]: 2 } as React.CSSProperties}>
-            Tu n'as pas besoin d'avoir toutes les réponses pour faire le premier pas. Envoie-moi un message — c'est déjà un acte de courage.
+            Tu n'as pas besoin d'avoir toutes les réponses pour faire le premier pas. Écris-moi quelques mots — c'est déjà un acte de courage, et je te réponds personnellement sous 48 h.
           </p>
 
           <form
@@ -567,16 +674,58 @@ function Footer() {
   );
 }
 
+function Loader() {
+  const [fading, setFading] = useState(false);
+  const [gone, setGone] = useState(false);
+  useEffect(() => {
+    const t1 = setTimeout(() => setFading(true), 1500);
+    const t2 = setTimeout(() => setGone(true), 2200);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
+  if (gone) return null;
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center transition-opacity duration-700"
+      style={{
+        background: "var(--primary-dark)",
+        opacity: fading ? 0 : 1,
+        pointerEvents: fading ? "none" : "auto",
+      }}
+      aria-hidden={fading}
+    >
+      <div className="loader-pop flex flex-col items-center gap-5">
+        <span className="relative w-24 h-24 rounded-full bg-[color:var(--accent)]/20 flex items-center justify-center text-[color:var(--accent)]">
+          <span className="loader-ring absolute inset-0 rounded-full border border-[color:var(--accent)]/40" />
+          <Icon.Leaf className="w-12 h-12" />
+        </span>
+        <span className="loader-text font-display font-bold text-3xl tracking-tight text-[color:var(--text-light)]">
+          Léa Verneuil
+        </span>
+        <span className="loader-sub label text-[color:var(--accent)] text-[11px]">
+          Coach de vie & bien-être
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   useScrollReveal();
   return (
     <main className="overflow-x-hidden">
+      <Loader />
       <Nav />
       <Hero />
       <About />
+      <ForWhom />
+      <Approach />
       <Services />
       <Testimonials />
       <FAQ />
+      <DiscoveryBand />
       <Contact />
       <Footer />
     </main>

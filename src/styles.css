@@ -135,3 +135,22 @@ h1, h2, h3, h4 {
   to { opacity: 1; transform: translateY(0); }
 }
 .hero-anim { opacity: 0; animation: heroIn 0.7s ease-out forwards; animation-delay: var(--d, 0ms); }
+
+/* Loader / splash de chargement */
+@keyframes loaderPop {
+  0% { opacity: 0; transform: scale(0.8); }
+  60% { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes loaderRing {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes loaderFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.loader-pop { animation: loaderPop 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.loader-ring { animation: loaderRing 1.6s ease-out infinite; }
+.loader-text { opacity: 0; animation: loaderFadeUp 0.6s ease-out 0.35s forwards; }
+.loader-sub { opacity: 0; animation: loaderFadeUp 0.6s ease-out 0.55s forwards; }
