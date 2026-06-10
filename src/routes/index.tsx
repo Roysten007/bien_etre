@@ -143,18 +143,18 @@ function Nav() {
           <span className="w-9 h-9 rounded-full bg-[color:var(--accent)]/20 flex items-center justify-center text-[color:var(--accent)]">
             <Icon.Leaf className="w-5 h-5" />
           </span>
-          <span className="font-display font-bold text-lg tracking-tight">Léa Verneuil</span>
+          <span className="font-display font-bold text-lg tracking-tight whitespace-nowrap">Léa Verneuil</span>
         </a>
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden xl:flex items-center gap-5">
           {links.map(([l, h]) => (
-            <a key={h} href={h} className="label text-[color:var(--text-light)]/85 hover:text-[color:var(--accent)] transition-colors">{l}</a>
+            <a key={h} href={h} className="label whitespace-nowrap text-[color:var(--text-light)]/85 hover:text-[color:var(--accent)] transition-colors">{l}</a>
           ))}
         </nav>
-        <a href="#contact" className="hidden lg:inline-flex btn-primary !py-3 !px-6 !text-[12px]">Prendre rendez-vous</a>
+        <a href="#contact" className="hidden xl:inline-flex btn-primary whitespace-nowrap !py-2.5 !px-5 !text-[11px]">Prendre rendez-vous</a>
         <button
           aria-label="Menu"
           aria-expanded={open}
-          className="lg:hidden text-[color:var(--text-light)] w-10 h-10 flex items-center justify-center"
+          className="xl:hidden text-[color:var(--text-light)] w-10 h-10 flex items-center justify-center"
           onClick={() => setOpen((o) => !o)}
         >
           <div className="space-y-1.5">
@@ -165,7 +165,7 @@ function Nav() {
         </button>
       </div>
       {open && (
-        <div className="lg:hidden px-5 pb-6 flex flex-col gap-4 bg-[color:var(--primary-dark)]">
+        <div className="xl:hidden px-5 pb-6 flex flex-col gap-4 bg-[color:var(--primary-dark)]">
           {links.map(([l, h]) => (
             <a key={h} href={h} onClick={() => setOpen(false)} className="label text-[color:var(--text-light)]/90 py-2 border-b border-white/10">{l}</a>
           ))}
