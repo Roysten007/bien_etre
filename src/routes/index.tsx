@@ -92,6 +92,11 @@ const Icon = {
       <path d="M6 9l6 6 6-6" />
     </svg>
   ),
+  Check: (p: { className?: string }) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={p.className}>
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  ),
   Insta: () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-5 h-5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
   ),
@@ -226,17 +231,17 @@ function Hero() {
         </div>
       </div>
 
-      <div ref={ref} className="mx-auto max-w-7xl px-5 md:px-10 mt-16 md:mt-24 grid grid-cols-3 gap-4 md:gap-8 border-t border-white/10 pt-10">
+      <div ref={ref} className="mx-auto max-w-7xl px-5 md:px-10 mt-16 md:mt-24 grid grid-cols-3 gap-3 sm:gap-6 md:gap-8 border-t border-white/10 pt-10">
         {[
           { v: n1, suffix: "", label: "Ans d'expérience" },
           { v: n2, suffix: "%", label: "Approche bienveillante" },
           { v: n3, suffix: "+", label: "Clientes accompagnées" },
         ].map((s, i) => (
           <div key={i} className="text-center lg:text-left">
-            <div className="font-display font-bold text-[color:var(--accent)] text-4xl md:text-6xl">
+            <div className="font-display font-bold text-[color:var(--accent)] text-3xl sm:text-5xl md:text-6xl leading-none">
               {s.v}{s.suffix}
             </div>
-            <p className="mt-2 label text-white/60 text-[10px] md:text-[11px]">{s.label}</p>
+            <p className="mt-2 font-semibold uppercase tracking-[0.06em] text-white/60 text-[9px] sm:text-[11px] leading-snug">{s.label}</p>
           </div>
         ))}
       </div>
@@ -377,31 +382,34 @@ function Services() {
     {
       icon: <Icon.Calendar className="w-7 h-7" />,
       title: "Séance individuelle",
-      desc: "Une heure pour toi, rien que pour toi. On explore ensemble ce qui te pèse, ce qui te freine, ou ce que tu veux clarifier. Chaque séance est unique, comme toi.",
-      price: "75 €",
-      badge: "En ligne ou présentiel",
-      cta: "Réserver une séance →",
-      ctaClass: "btn-outline",
+      tagline: "Pour commencer en douceur",
+      price: "75",
+      unit: "/ séance",
+      desc: "Une heure pour toi, rien que pour toi. On explore ce qui te pèse, ce qui te freine, ou ce que tu veux clarifier.",
+      features: ["Séance de 60 min", "En visio ou à Lyon", "Sans aucun engagement"],
+      cta: "Réserver une séance",
       featured: false,
     },
     {
       icon: <Icon.Spiral className="w-7 h-7" />,
       title: "Suivi mensuel",
-      desc: "Un accompagnement en profondeur sur 4 semaines. Idéal si tu traverses une période de transition ou si tu veux ancrer de nouveaux patterns. On avance ensemble, semaine après semaine.",
-      price: "250 € / mois",
-      badge: "4 séances incluses",
-      cta: "Commencer l'aventure →",
-      ctaClass: "btn-primary",
+      tagline: "L'accompagnement complet",
+      price: "250",
+      unit: "/ mois",
+      desc: "Un cheminement en profondeur sur 4 semaines, pour ancrer durablement de nouveaux repères.",
+      features: ["4 séances de 60 min", "Soutien entre les séances", "Exercices personnalisés", "Bilan de parcours"],
+      cta: "Commencer l'aventure",
       featured: true,
     },
     {
       icon: <Icon.Group className="w-7 h-7" />,
       title: "Atelier en groupe",
-      desc: "Des ateliers thématiques en petit comité (6 max) pour explorer, partager et grandir ensemble. Confiance en soi, limites saines, reconnexion à ses désirs…",
-      price: "45 € / atelier",
-      badge: "Prochaine date : juillet 2025",
-      cta: "Voir les ateliers →",
-      ctaClass: "btn-outline",
+      tagline: "À plusieurs, c'est plus doux",
+      price: "45",
+      unit: "/ atelier",
+      desc: "Des ateliers thématiques en petit comité pour explorer, partager et grandir ensemble.",
+      features: ["Petit groupe (6 max)", "Thèmes variés", "Présentiel à Lyon"],
+      cta: "Voir les ateliers",
       featured: false,
     },
   ];
@@ -420,33 +428,43 @@ function Services() {
             </p>
           </div>
 
-          <div className="mt-14 grid md:grid-cols-3 gap-6">
+          <div className="mt-16 grid md:grid-cols-3 gap-6 md:gap-7 items-stretch">
             {cards.map((c, i) => (
               <div
                 key={c.title}
-                className="card animate-on-scroll relative flex flex-col"
-                style={{
-                  borderTop: c.featured ? "3px solid var(--accent)" : undefined,
-                  ["--i" as string]: i + 1,
-                } as React.CSSProperties}
+                className={`animate-on-scroll relative flex flex-col rounded-[26px] p-7 md:p-8 bg-white transition-transform duration-300 hover:-translate-y-1.5 ${
+                  c.featured
+                    ? "ring-2 ring-[color:var(--accent)] shadow-[0_24px_60px_rgba(0,0,0,0.22)] md:-mt-4 md:mb-4"
+                    : "shadow-[0_6px_28px_rgba(0,0,0,0.10)]"
+                }`}
+                style={{ ["--i" as string]: i + 1 } as React.CSSProperties}
               >
                 {c.featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[color:var(--accent)] text-[color:var(--primary-dark)] text-[11px] font-bold uppercase tracking-wider whitespace-nowrap">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[color:var(--accent)] text-[color:var(--primary-dark)] text-[11px] font-bold uppercase tracking-wider whitespace-nowrap shadow-md">
                     ✦ Le plus choisi
                   </span>
                 )}
-                <div className="w-14 h-14 rounded-full bg-[color:var(--accent)]/15 text-[color:var(--accent-dark)] flex items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl bg-[color:var(--accent)]/15 text-[color:var(--accent-dark)] flex items-center justify-center">
                   {c.icon}
                 </div>
                 <h3 className="mt-5 font-display font-bold text-[color:var(--primary)] text-2xl">{c.title}</h3>
-                <p className="mt-3 text-[color:var(--muted)] text-[15px] leading-[1.75] flex-1">{c.desc}</p>
-                <div className="mt-6 flex items-center justify-between gap-3 flex-wrap">
-                  <div className="font-display font-bold text-[color:var(--accent-dark)] text-[28px]">{c.price}</div>
-                  <span className="px-3 py-1.5 rounded-full bg-[color:var(--primary)]/10 text-[color:var(--primary-dark)] text-[12px] font-semibold">
-                    {c.badge}
-                  </span>
+                <p className="mt-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-[color:var(--accent-dark)]">{c.tagline}</p>
+                <div className="mt-5 flex items-end gap-1.5">
+                  <span className="font-display font-bold text-[color:var(--primary-dark)] text-[42px] leading-none">{c.price} €</span>
+                  <span className="text-[color:var(--muted)] text-[14px] mb-1.5">{c.unit}</span>
                 </div>
-                <a href="#contact" className={`${c.ctaClass} mt-6 w-full !text-xs !py-2 !px-4 md:!text-sm md:!py-3 md:!px-6`}>{c.cta}</a>
+                <p className="mt-4 text-[color:var(--muted)] text-[15px] leading-[1.7]">{c.desc}</p>
+                <ul className="mt-6 space-y-3 flex-1">
+                  {c.features.map((f) => (
+                    <li key={f} className="flex items-start gap-3 text-[14px] text-[color:var(--text)]/85">
+                      <span className="shrink-0 w-5 h-5 mt-0.5 rounded-full bg-[color:var(--primary)]/10 text-[color:var(--primary)] flex items-center justify-center">
+                        <Icon.Check className="w-3 h-3" />
+                      </span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#contact" className={`${c.featured ? "btn-primary" : "btn-outline"} mt-8 w-full !text-xs !py-3 !px-4 md:!text-[13px]`}>{c.cta} →</a>
               </div>
             ))}
           </div>
@@ -664,7 +682,7 @@ function Footer() {
           </div>
         </div>
         <div className="text-[13px] text-white/60 space-y-2 text-center md:text-right">
-          <div>Fait avec ♡ · Lyon, France</div>
+          <div>Fait par Roysten Design</div>
           <div className="flex gap-4 justify-center md:justify-end">
             <a href="#" className="hover:text-[color:var(--accent)]">Mentions légales</a>
             <a href="#" className="hover:text-[color:var(--accent)]">Confidentialité</a>
