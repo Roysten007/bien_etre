@@ -98,8 +98,8 @@ const Icon = {
   Linkedin: () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M4 4h4v4H4zM4 10h4v10H4zM10 10h4v2c.7-1.3 2.2-2.3 4-2.3 3 0 4 2 4 5V20h-4v-4.5c0-1.4-.5-2.5-2-2.5s-2 1.1-2 2.5V20h-4z"/></svg>
   ),
-  Pinterest: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-5 h-5"><circle cx="12" cy="12" r="9"/><path d="M11 8c2 0 4 1 4 3.5S13.5 15 12 15c-.8 0-1.5-.4-1.8-1L9 19"/></svg>
+  Whatsapp: () => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.2 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.8c2.17 0 4.21.85 5.75 2.38a8.1 8.1 0 0 1 2.38 5.74c0 4.48-3.65 8.12-8.13 8.12-1.52 0-3-.41-4.29-1.18l-.31-.18-3.12.82.83-3.04-.2-.31a8.08 8.08 0 0 1-1.24-4.32c0-4.48 3.64-8.12 8.13-8.12Zm-3.7 4.36c-.18 0-.46.07-.7.33-.24.26-.92.9-.92 2.2 0 1.3.94 2.55 1.07 2.73.13.18 1.85 2.82 4.48 3.96.63.27 1.11.43 1.49.55.63.2 1.2.17 1.65.1.5-.07 1.55-.63 1.77-1.25.22-.61.22-1.14.15-1.25-.07-.11-.24-.18-.5-.31-.26-.13-1.55-.76-1.79-.85-.24-.09-.41-.13-.59.13-.17.26-.67.85-.82 1.03-.15.18-.3.2-.56.07-.26-.13-1.1-.41-2.1-1.3-.78-.69-1.3-1.55-1.45-1.81-.15-.26-.02-.4.11-.53.12-.12.26-.31.4-.46.13-.16.17-.27.26-.45.09-.18.04-.34-.02-.47-.07-.13-.58-1.42-.8-1.94-.21-.51-.42-.44-.58-.45-.15-.01-.32-.01-.5-.01Z"/></svg>
   ),
 };
 
@@ -169,7 +169,6 @@ function Nav() {
           {links.map(([l, h]) => (
             <a key={h} href={h} onClick={() => setOpen(false)} className="label text-[color:var(--text-light)]/90 py-2 border-b border-white/10">{l}</a>
           ))}
-          <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2 !text-[10px] !py-1.5 !px-3">Prendre rendez-vous</a>
         </div>
       )}
     </header>
@@ -629,7 +628,7 @@ function Contact() {
             {[
               { icon: <Icon.Insta />, label: "Instagram" },
               { icon: <Icon.Linkedin />, label: "LinkedIn" },
-              { icon: <Icon.Pinterest />, label: "Pinterest" },
+              { icon: <Icon.Whatsapp />, label: "WhatsApp" },
             ].map((s) => (
               <a
                 key={s.label}
@@ -661,7 +660,7 @@ function Footer() {
             <div className="text-[12px] text-white/50">Coach de vie & bien-être · Lyon, France</div>
           </div>
         </div>
-        <div className="text-[13px] text-white/60 space-y-1">
+        <div className="text-[13px] text-white/60 space-y-2 text-center md:text-right">
           <div>Fait avec ♡ · Lyon, France</div>
           <div className="flex gap-4 justify-center md:justify-end">
             <a href="#" className="hover:text-[color:var(--accent)]">Mentions légales</a>
