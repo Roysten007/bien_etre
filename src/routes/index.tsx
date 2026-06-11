@@ -150,7 +150,9 @@ function Nav() {
             <a key={h} href={h} className="label whitespace-nowrap text-[color:var(--text-light)]/85 hover:text-[color:var(--accent)] transition-colors">{l}</a>
           ))}
         </nav>
-        <a href="#contact" className="hidden xl:inline-flex btn-primary whitespace-nowrap !py-2.5 !px-5 !text-[11px]">Prendre rendez-vous</a>
+        <div className="hidden xl:flex items-center">
+          <a href="#contact" className="btn-primary whitespace-nowrap !py-2.5 !px-5 !text-[11px]">Prendre rendez-vous</a>
+        </div>
         <button
           aria-label="Menu"
           aria-expanded={open}
@@ -169,6 +171,7 @@ function Nav() {
           {links.map(([l, h]) => (
             <a key={h} href={h} onClick={() => setOpen(false)} className="label text-[color:var(--text-light)]/90 py-2 border-b border-white/10">{l}</a>
           ))}
+          <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2 w-full !text-[11px] !py-3 !px-4">Prendre rendez-vous</a>
         </div>
       )}
     </header>
